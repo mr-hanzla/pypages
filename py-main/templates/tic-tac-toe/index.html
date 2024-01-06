@@ -27,6 +27,52 @@
 {% block title %}TicTacToe{% endblock title %}
 
 {% block content %}
-<h1>TTT Game!</h1>
-<h2>From the index.html</h2>
+<h1>Tic Tac Toe!</h1>
+
+<h1>
+    <input id="board-range" type="range" value="3" onchange="expandBoard()" step="2" min="3" max="9" />
+    <span id="boardRangeValue" class="badge bg-secondary">New</span>
+</h1>
+<button id="player" onclick="switchPlayer()" type="button" class="btn btn-primary">X</button>
+<br><br>
+
+<div id="board" class="grid-container">
+</div>
+
+<script>
+    expandBoard();
+
+    function changeBoardColumns(numOfCols) {
+        console.log(numOfCols);
+        let temp = 'auto';
+        for (i=0; i<parseInt(numOfCols) - 1; i++) {
+            temp += ' auto';
+        }
+        board.style.gridTemplateColumns = temp;
+    }
+
+    function getInnerGridCellDiv(id) {
+        let cellDiv = document.createElement('div');
+        cellDiv.setAttribute('id', id);
+        cellDiv.setAttribute('class', 'grid-item');
+        cellDiv.setAttribute('onclick', 'tempClick()');
+
+        return cellDiv;
+    }
+
+    function expandBoard() {
+        let boardRange = document.getElementById('board-range');
+        let boardDiv = document.getElementById('board');
+
+        changeBoardColumns(boardRange.value);
+        document.getElementById('boardRangeValue').innerText = boardRange.value;
+
+        boardDiv.innerHTML = '';
+        for (i=0; i<boardRange.value; i++) {
+            for (j=0; j<boardRange.value; j++) {
+                boardDiv.appendChild(getInnerGridCellDiv(`cell-${i}-${j}`));
+            }
+        }
+    }
+</script>
 {% endblock content %}
