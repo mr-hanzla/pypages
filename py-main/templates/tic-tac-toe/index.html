@@ -1,5 +1,29 @@
 {% extends 'base.html' %}
 
+{% block external_style %}
+<style>
+    .grid-container {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: auto auto auto;
+      background-color: #1245;
+      padding: 10px;
+      height: max-content;
+      width: fit-content;
+    }
+    .grid-item {
+      color: rgb(199, 201, 116);
+      background-color: rgba(100, 100, 100, 0.8);
+      border: 3px solid rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      font-size: 30px;
+      text-align: center;
+      width: 30px;
+      height: 30px;
+    }
+    </style>
+{% endblock external_style %}
+
 {% block title %}TicTacToe{% endblock title %}
 
 {% block content %}
