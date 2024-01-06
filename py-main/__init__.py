@@ -22,4 +22,7 @@ def create_app(test_config=None):
     def salam():
         return '<h1>Salam, kese ho?</h1>'
 
+    from . import tic_tac_toe
+    app.register_blueprint(tic_tac_toe.bp)
+
     return app
