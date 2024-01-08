@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -18,9 +18,9 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route('/salam')
+    @app.route('/')
     def salam():
-        return '<h1>Salam, kese ho?</h1>'
+        return render_template('main/index.html')
 
     from . import tic_tac_toe
     app.register_blueprint(tic_tac_toe.bp)
