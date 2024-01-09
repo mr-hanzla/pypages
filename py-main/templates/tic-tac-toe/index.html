@@ -65,11 +65,7 @@
         if (cellDiv.innerText === '') {
             cellDiv.innerText = getPlayer();
 
-            if (checkRowForWin(id)) {
-                console.log(`${getPlayer()} Has Won!`);
-            }
-
-            else if (checkColForWin(id)) {
+            if (checkRowForWin(id) || checkColForWin(id)) {
                 console.log(`${getPlayer()} Has Won!`);
             }
 
