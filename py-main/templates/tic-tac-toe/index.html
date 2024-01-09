@@ -65,7 +65,7 @@
         if (cellDiv.innerText === '') {
             cellDiv.innerText = getPlayer();
 
-            if (checkRowForWin(id) || checkColForWin(id)) {
+            if (checkRowAndColForWin(id)) {
                 console.log(`${getPlayer()} Has Won!`);
             }
 
@@ -87,32 +87,29 @@
         return id.split('-')[2]
     }
 
-    function checkRowForWin(id) {
-        let tempRowValues = new Set();
-        let rowNumber = getRowNumberFromId(id);
-        let boardSize = getBoardSize();
-
-        for (i=0; i<boardSize; i++) {
-            let cellValue = document.getElementById(`cell-${rowNumber}-${i}`).innerText;
-            tempRowValues.add(cellValue);
-        }
-
-        if (tempRowValues.size === 1 && tempRowValues.has(getPlayer()))
-            return true;
-        return false;
+    function getCellValue(cellId) {
+        return document.getElementById(cellId).innerText;
     }
 
-    function checkColForWin(id) {
+    function checkRowAndColForWin(id) {
+        console.log('new validating function!');
+        let tempRowValues = new Set();
         let tempColValues = new Set();
+        let rowNumber = getRowNumberFromId(id);
         let colNumber = getColNumberFromId(id);
         let boardSize = getBoardSize();
 
         for (i=0; i<boardSize; i++) {
-            let cellValue = document.getElementById(`cell-${i}-${colNumber}`).innerText;
-            tempColValues.add(cellValue);
+            // getting row values by keeping the row# same,
+            // and chaning the col#
+            tempRowValues.add(getCellValue(`cell-${rowNumber}-${i}`));
+            // getting column values by keeping the col# same,
+            // and changing row#
+            tempColValues.add(getCellValue(`cell-${i}-${colNumber}`));
         }
 
-        if (tempColValues.size === 1 && tempColValues.has(getPlayer()))
+        if ((tempRowValues.size === 1 && tempRowValues.has(getPlayer()))
+        || (tempColValues.size === 1 && tempColValues.has(getPlayer())))
             return true;
         return false;
     }
