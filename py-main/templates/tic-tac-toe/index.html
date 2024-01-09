@@ -66,7 +66,11 @@
             cellDiv.innerText = getPlayer();
 
             if (checkRowForWin(id)) {
-                console.log(`${getPlayer()} Has Won!`)
+                console.log(`${getPlayer()} Has Won!`);
+            }
+
+            else if (checkColForWin(id)) {
+                console.log(`${getPlayer()} Has Won!`);
             }
 
             switchPlayer();
@@ -102,8 +106,19 @@
         return false;
     }
 
-    function getColValues() {
-        // TODO
+    function checkColForWin(id) {
+        let tempColValues = new Set();
+        let colNumber = getColNumberFromId(id);
+        let boardSize = getBoardSize();
+
+        for (i=0; i<boardSize; i++) {
+            let cellValue = document.getElementById(`cell-${i}-${colNumber}`).innerText;
+            tempColValues.add(cellValue);
+        }
+
+        if (tempColValues.size === 1 && tempColValues.has(getPlayer()))
+            return true;
+        return false;
     }
 
     function getDiagonalValues() {
