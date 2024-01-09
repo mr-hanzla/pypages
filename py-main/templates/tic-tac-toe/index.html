@@ -58,17 +58,60 @@
 
     // to update the cell when user clicks from from frontend
     function updatePlayer(id) {
-        console.log(id);
         let rowValue = id.split('-')[1];
         let colValue = id.split('-')[2];
 
-        document.getElementById(id).innerText = getPlayer();
-        switchPlayer();
+        let cellDiv = document.getElementById(id);
+        if (cellDiv.innerText === '') {
+            cellDiv.innerText = getPlayer();
+
+            if (checkRowForWin(id)) {
+                console.log(`${getPlayer()} Has Won!`)
+            }
+
+            switchPlayer();
+        } else {
+            console.log('Already Filled!')
+        }
+    }
+
+    function getBoardSize() {
+        return parseInt(document.getElementById('board-range').value);
+    }
+
+    function getRowNumberFromId(id) {
+        return id.split('-')[1]
+    }
+
+    function getColNumberFromId(id) {
+        return id.split('-')[2]
+    }
+
+    function checkRowForWin(id) {
+        let tempRowValues = new Set();
+        let rowNumber = getRowNumberFromId(id);
+        let boardSize = getBoardSize();
+
+        for (i=0; i<boardSize; i++) {
+            let cellValue = document.getElementById(`cell-${rowNumber}-${i}`).innerText;
+            tempRowValues.add(cellValue);
+        }
+
+        if (tempRowValues.size === 1 && tempRowValues.has(getPlayer()))
+            return true;
+        return false;
+    }
+
+    function getColValues() {
+        // TODO
+    }
+
+    function getDiagonalValues() {
+        // TODO
     }
 
     // set the # of columns according to input range
     function changeBoardColumns(numOfCols) {
-        console.log(numOfCols);
         let temp = 'auto';
         for (i=0; i<parseInt(numOfCols) - 1; i++) {
             temp += ' auto';
