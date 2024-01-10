@@ -130,6 +130,7 @@
         || (leftDiagonalValues.size === 1 && leftDiagonalValues.has(getPlayer()))
         ) {
             hasGameEnded = true;
+            document.getElementById('board-range').disabled = true;
             return true;
         }
         return false;
@@ -156,6 +157,8 @@
 
     // makes the board accorind to # of cols from input range
     function expandBoard() {
+        hasGameEnded = false;
+        document.getElementById('board-range').disabled = false;
         let boardRange = document.getElementById('board-range');
         let boardDiv = document.getElementById('board');
 
