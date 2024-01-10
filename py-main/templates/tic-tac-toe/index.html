@@ -92,6 +92,10 @@
         return id.split('-')[2]
     }
 
+    function getCellIdString(row, col) {
+        return `cell-${row}-${col}`;
+    }
+
     function getCellValue(cellId) {
         return document.getElementById(cellId).innerText;
     }
