@@ -41,6 +41,7 @@
 </div>
 
 <script>
+    let hasGameEnded = false;
     expandBoard();
 
     // returns current player
@@ -58,6 +59,10 @@
 
     // to update the cell when user clicks from from frontend
     function updatePlayer(id) {
+        if (hasGameEnded) {
+            return;
+        }
+
         let rowValue = id.split('-')[1];
         let colValue = id.split('-')[2];
 
