@@ -70,9 +70,8 @@
         if (cellDiv.innerText === '') {
             cellDiv.innerText = getPlayer();
 
-            if (checkRowAndColForWin(id)) {
+            if (checkForWin(id)) {
                 console.log(`${getPlayer()} Has Won!`);
-                document.getElementById('board-range').disabled = true;
             }
 
             switchPlayer();
@@ -101,7 +100,7 @@
         return document.getElementById(cellId).innerText;
     }
 
-    function checkRowAndColForWin(id) {
+    function checkForWin(id) {
         let tempRowValues = new Set();
         let tempColValues = new Set();
         let rowNumber = getRowNumberFromId(id);
