@@ -72,6 +72,7 @@
 
             if (checkRowAndColForWin(id)) {
                 console.log(`${getPlayer()} Has Won!`);
+                document.getElementById('board-range').disabled = true;
             }
 
             switchPlayer();
@@ -101,25 +102,37 @@
     }
 
     function checkRowAndColForWin(id) {
-        console.log('new validating function!');
         let tempRowValues = new Set();
         let tempColValues = new Set();
         let rowNumber = getRowNumberFromId(id);
         let colNumber = getColNumberFromId(id);
+        let rightDigonalValues = new Set();
+        let leftDiagonalValues = new Set();
         let boardSize = getBoardSize();
 
         for (i=0; i<boardSize; i++) {
             // getting row values by keeping the row# same,
             // and chaning the col#
-            tempRowValues.add(getCellValue(`cell-${rowNumber}-${i}`));
+            tempRowValues.add(getCellValue(getCellIdString(rowNumber, i)));
             // getting column values by keeping the col# same,
             // and changing row#
-            tempColValues.add(getCellValue(`cell-${i}-${colNumber}`));
+            tempColValues.add(getCellValue(getCellIdString(i, colNumber)));
+            // for right diagonal, row# & col# values increase simultaneously,
+            // like (0,0), (1,1) ...
+            rightDigonalValues.add(getCellValue(getCellIdString(i, i)));
+            // for left diagonal, row# & col# increase in reverse order,
+            // like in case of 3x3 ==> (0,2), (1,1), (2,0)
+            leftDiagonalValues.add(getCellValue(getCellIdString(i, boardSize - 1 - i)));
         }
 
         if ((tempRowValues.size === 1 && tempRowValues.has(getPlayer()))
-        || (tempColValues.size === 1 && tempColValues.has(getPlayer())))
+        || (tempColValues.size === 1 && tempColValues.has(getPlayer()))
+        || (rightDigonalValues.size === 1 && rightDigonalValues.has(getPlayer()))
+        || (leftDiagonalValues.size === 1 && leftDiagonalValues.has(getPlayer()))
+        ) {
+            hasGameEnded = true;
             return true;
+        }
         return false;
     }
 
