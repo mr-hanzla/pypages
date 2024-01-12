@@ -3,5 +3,11 @@
 {% block title %}Main{% endblock title %}
 
 {% block content %}
-<h1>From the main/index.html</h1>
+<h1>Links to the pages...</h1>
+
+<ul>
+    <li>
+        <a href="{{ url_for('tic-tac-toe.init') }}">Tic Tac Toe</a>
+    </li>
+</ul>
 {% endblock content %}
