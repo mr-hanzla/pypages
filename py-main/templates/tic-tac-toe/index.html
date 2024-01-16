@@ -56,7 +56,48 @@
 
 <script>
     let hasGameEnded = false;
+    let hasGameStarted = false;
+
+    // following four variables to control the stopwatch
+    let hh = 0;
+    let mm = 0;
+    let ss = 0;
+    let ms = 1;
+
     expandBoard();
+
+    function resetStopWatch() {
+        document.getElementById('count').innerText = 0;
+        document.getElementById('sec').innerText = 0;
+        document.getElementById('min').innerText = 0;
+        document.getElementById('hr').innerText = 0;
+    }
+
+    function startStopWatch() {
+        // if (hasGameStarted) {
+        //     return;
+        // }
+        // hasGameStarted = true;
+
+        ms += ms;
+        document.getElementById('count').innerText = ms;
+
+        ss += 1;
+
+        if (ss === 60) {
+            ss = 0;
+            mm += 1;
+            document.getElementById('min').innerText = mm;
+        } if (mm === 60) {
+            mm = 0;
+            hh += 1;
+            document.getElementById('hr').innerText = hh;
+        }
+
+        document.getElementById('sec').innerText = ss;
+    }
+
+    setInterval(startStopWatch, 1000);
 
     // returns current player
     function getPlayer() {
